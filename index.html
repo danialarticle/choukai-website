@@ -1,2 +1,83 @@
-/choukai-website
-├── index.html     ✅ (halaman utama)
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Latihan Chōkai Jepang</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #f9f9f9;
+      padding: 40px;
+    }
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      max-width: 600px;
+      margin: auto;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin: 10px;
+      border: none;
+      border-radius: 8px;
+      background-color: #4CAF50;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    #result {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+    input[type="text"] {
+      padding: 10px;
+      font-size: 16px;
+      width: 80%;
+      margin-top: 20px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Latihan Mendengar Bahasa Jepang</h1>
+    <p><strong>Kalimat:</strong> <span id="sentence">おはようございます</span></p>
+    <button onclick="playAudio()">🔊 Putar Audio</button>
+    <br>
+    <input type="text" id="userInput" placeholder="Ketik apa yang Anda dengar...">
+    <br>
+    <button onclick="checkAnswer()">✅ Periksa Jawaban</button>
+    <div id="result">Hasil: -</div>
+  </div>
+
+  <script>
+    const kalimat = document.getElementById("sentence").innerText;
+
+    function playAudio() {
+      const utterance = new SpeechSynthesisUtterance(kalimat);
+      utterance.lang = 'ja-JP';
+      speechSynthesis.speak(utterance);
+    }
+
+    function checkAnswer() {
+      const userInput = document.getElementById("userInput").value.trim();
+      const result = document.getElementById("result");
+
+      if (userInput === kalimat) {
+        result.innerText = "Hasil: ✅ Benar!";
+        result.style.color = "green";
+      } else {
+        result.innerText = `Hasil: ❌ Salah. Jawaban benar: ${kalimat}`;
+        result.style.color = "red";
+      }
+    }
+  </script>
+</body>
+</html>
